@@ -5,32 +5,23 @@
     <!--MAIN-->
     <div id="principal">
         <h1>Últimas entradas</h1>
-        <article class="entrada">
-            <a href="">
-                <h2>Título de mi entrada</h2>
-                <p>
-                    Descripción de la entrada
-                </p>
-            </a>
-        </article>
 
-        <article class="entrada">
-            <a href="">
-                <h2>Título de mi entrada 2</h2>
-                <p>
-                    Descripción de la entrada 2
-                </p>
-            </a>
-        </article>
+    <?php 
+        $entradas = conseguirUltimasEntradas($db);
+        if(!empty($entradas)):
+            while($entrada = mysqli_fetch_assoc($entradas)):
+    ?>
+                <article class="entrada">
+                    <a href="">
+                        <h2><?=$entrada['titulo']?></h2>
+                        <p><?=substr($entrada['descripcion'], 0, 180). "..."?></p>
+                    </a>
+                </article>
 
-        <article class="entrada">
-            <a href="">
-                <h2>Título de mi entrada 3</h2>
-                <p>
-                    Descripción de la entrada 3
-                </p>
-            </a>
-        </article>
+    <?php
+            endwhile;
+        endif;
+    ?>
 
         <div id="ver-todas">
             <a href="">Ver todas las entradas</a>

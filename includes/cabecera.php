@@ -1,4 +1,5 @@
 <?php require_once 'conexion.php'; ?>
+<?php require_once 'includes/helpers.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -19,30 +20,29 @@
                 Blog de viajes
             </a>
         </div>
+
         <!--MENU-->
+        
         <nav id="menu">
             <ul>
                 <li>
                     <a href="index.php">Inicio</a>
                 </li>
-                <li>
-                    <a href="index.php">África</a>
-                </li>
-                <li>
-                    <a href="index.php">América</a>
-                </li>
-                <li>
-                    <a href="index.php">Asia</a>
-                </li>
-                <li>
-                    <a href="index.php">Europa</a>
-                </li>
-                <li>
-                    <a href="index.php">Oceanía</a>
-                </li>
-                <li>
-                    <a href="index.php">Antártida</a>
-                </li>
+
+                <?php 
+                    $continentes = conseguirContinentes($db);
+                    if(!empty($continentes)):
+  
+                            while($continente = mysqli_fetch_assoc($continentes)) :
+                ?>
+                            <li>
+                                <a href="continente.php?id=<?=$continente['id']?>"><?=$continente['nombre']?></a>
+                            </li>
+
+                <?php 
+                            endwhile; 
+                    endif;
+                ?>
                 <li>
                     <a href="index.php">Sobre nosotros</a>
                 </li>
