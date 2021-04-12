@@ -36,7 +36,7 @@ function conseguirContinentes($conexion){
 }
 
 function conseguirUltimasEntradas($conexion){
-    $sql="SELECT e.*, c.* FROM entradas e ".
+    $sql="SELECT e.*, c.nombre AS 'continente' FROM entradas e ".
          "INNER JOIN continentes c ON e.continente_id = c.id ".
          "ORDER BY e.id DESC LIMIT 4";
          $entradas = mysqli_query($conexion, $sql);
