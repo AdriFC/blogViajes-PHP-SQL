@@ -11,12 +11,14 @@
         <form action="guardar-entradas.php" method="POST">     
             <label for="titulo">Título:</label> 
             <input type="text" name="titulo">
+            <?php echo isset($_SESSION['errores_entrada']) ? mostrarError($_SESSION['errores_entrada'], 'titulo') : '' ?>
 
             <label for="descripcion">Descripción:</label> 
             <textarea type="text" name="descripcion"></textarea>
+            <?php echo isset($_SESSION['errores_entrada']) ? mostrarError($_SESSION['errores_entrada'], 'descripcion') : '' ?>
 
             <label for="continente">Continente:</label> 
-            <input name="continente">
+            <select name="continente">
             <?php 
                 $continentes = conseguirContinentes($db);
                 if(!empty($continentes)):
@@ -31,9 +33,13 @@
                 endwhile;
                 endif;
             ?>
+            </select>
+
+            <?php echo isset($_SESSION['errores_entrada']) ? mostrarError($_SESSION['errores_entrada'], 'continente') : '' ?>
 
             <input type="submit" value="Guardar">
         </form> 
+        <?php borrarErrores(); ?>
 </div>      
 
 <?php require_once 'includes/pie.php';  ?>
