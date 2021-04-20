@@ -41,10 +41,67 @@ function conseguirContinentes($conexion){
     return $resultado;
 }
 
-function conseguirUltimasEntradas($conexion){
+function conseguirContinente($conexion, $id){
+
+    $sql = "SELECT * FROM continentes WHERE id = $id;";
+    $continentes = mysqli_query($conexion, $sql);
+
+    $resultado = array();
+    if ($continentes && mysqli_num_rows($continentes) >= 1){
+        $resultado = mysqli_fetch_assoc($continentes);
+    }
+
+    return $resultado;
+}
+
+function conseguirEntradas($conexion, $limit = null, $continente = null){
+    $sql="SELECT e.*, c.nombre AS 'continente' FROM entradas e ".
+         "INNER JOIN continentes c ON e.continente_id = c.id ";
+         
+
+         if(!empty($continente)){
+             $sql .= "WHERE e.continente_id = $continente ";
+         }
+
+         $sql .= "ORDER BY e.id DESC ";
+
+         if($limit){
+             $sql .="LIMIT 4";
+         }
+
+        //  echo $sql;
+        //  die();
+
+         $entradas = mysqli_query($conexion, $sql);
+         $resultado = array();
+
+         if($entradas && mysqli_num_rows($entradas) >=1){
+             $resultado = $entradas;
+         }
+
+         return $entradas;
+}
+
+function conseguirEntrada($conexion, $id){
+    $sql = "SELECT e.*, c.nombre AS 'continente' FROM entradas e ".
+           "INNER JOIN continentes c ON e.continente_id = c.id ".
+           "WHERE e.id = $id";
+           
+    $entrada = mysqli_query($conexion, $sql);
+
+    $resultado = array();
+    if($entrada && mysqli_num_rows($entrada) >= 1){
+        $resultado = mysqli_fetch_assoc($entrada);
+    }
+
+    return $resultado;
+
+}
+
+function conseguiTodasEntradas($conexion){
     $sql="SELECT e.*, c.nombre AS 'continente' FROM entradas e ".
          "INNER JOIN continentes c ON e.continente_id = c.id ".
-         "ORDER BY e.id DESC LIMIT 4";
+         "ORDER BY e.id DESC";
          $entradas = mysqli_query($conexion, $sql);
          $resultado = array();
          if($entradas && mysqli_num_rows($entradas) >=1){
@@ -53,4 +110,5 @@ function conseguirUltimasEntradas($conexion){
 
          return $entradas;
 }
+
 ?>

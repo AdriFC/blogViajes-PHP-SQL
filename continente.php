@@ -1,14 +1,24 @@
+<?php require_once 'includes/conexion.php' ?>
+<?php require_once 'includes/helpers.php' ?>
+
+<?php 
+    $continenteActual = conseguirContinente($db, $_GET['id']);
+    if(!isset($continenteActual['id'])){
+        header("Location: index.php");
+    }
+?>
+
 <?php require_once 'includes/cabecera.php' ?>
-   
 <?php require_once 'includes/lateral.php'; ?>
 
     <!--MAIN-->
     <div id="principal">
-        <h1>Últimas entradas</h1>
+
+        <h1>Entradas de <?=$continenteActual['nombre']?></h1>
 
     <?php 
-        $entradas = conseguirEntradas($db, true);
-        if(!empty($entradas)):
+        $entradas = conseguirEntradas($db, null, $_GET['id']);
+        if(!empty($entradas) && mysqli_num_rows($entradas) >=1):
             while($entrada = mysqli_fetch_assoc($entradas)):
     ?>
                 <article class="entrada">
@@ -22,12 +32,10 @@
 
     <?php
             endwhile;
-        endif;
+        else:
     ?>
-
-        <div id="ver-todas">
-            <a href="entradas.php">Ver todas las entradas</a>
-        </div>
+        <div class="alerta">No hay entradas en este continente</div>
+    <?php endif; ?>
 
     </div> <!-- fin principal-->      
 
