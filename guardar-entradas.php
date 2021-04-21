@@ -33,7 +33,7 @@ if(isset($_POST)){
                $entrada_id = $_GET['editar'];
                $usuario_id = $_SESSION['usuario']['id'];
 
-                $sql = "UPDATE entradas SET TITULO='$titulo', descripcion='$descripcion', categoria_id=$continente ".
+                $sql = "UPDATE entradas SET titulo='$titulo', descripcion='$descripcion', continente_id=$continente ".
                         "WHERE id= $entrada_id AND usuario_id = $usuario_id";
             }else{
                     $sql = "INSERT INTO entradas VALUES (null, $usuario, $continente, '$titulo', '$descripcion', CURDATE());";

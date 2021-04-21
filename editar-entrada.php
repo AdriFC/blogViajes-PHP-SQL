@@ -19,7 +19,7 @@
             Edita tu entrada <?=$entradaActual['titulo']?>
         </p>
         <br>
-        <form action="guardar-entradas.php?editar=<?=$entrada_actual['id']?>" method="POST">     
+        <form action="guardar-entradas.php?editar=<?=$entradaActual['id']?>" method="POST">     
             <label for="titulo">Título:</label> 
             <input type="text" name="titulo" value="<?=$entradaActual['titulo']?>">
             <?php echo isset($_SESSION['errores_entrada']) ? mostrarError($_SESSION['errores_entrada'], 'titulo') : '' ?>
@@ -36,7 +36,7 @@
                     while($continente = mysqli_fetch_assoc($continentes)):
             ?>
                
-                <option value="<?=$continente['id']?>"<?=($continente['id'] == $entradaActual['continente_id']) ? 'selected="selected"' : '' ?>>
+                <option value="<?=$continente['id']?>" <?=($continente['id'] == $entradaActual['continente_id']) ? 'selected="selected"' : '' ?>>
                         <?=$continente['nombre']?>
                 </option>
                 

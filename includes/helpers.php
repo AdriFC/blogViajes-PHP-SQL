@@ -54,7 +54,7 @@ function conseguirContinente($conexion, $id){
     return $resultado;
 }
 
-function conseguirEntradas($conexion, $limit = null, $continente = null){
+function conseguirEntradas($conexion, $limit = null, $continente = null, $busqueda = null){
     $sql="SELECT e.*, c.nombre AS 'continente' FROM entradas e ".
          "INNER JOIN continentes c ON e.continente_id = c.id ";
          
@@ -62,6 +62,10 @@ function conseguirEntradas($conexion, $limit = null, $continente = null){
          if(!empty($continente)){
              $sql .= "WHERE e.continente_id = $continente ";
          }
+
+         if(!empty($busqueda)){
+            $sql .= "WHERE e.titulo LIKE '%$busqueda%'";
+        }
 
          $sql .= "ORDER BY e.id DESC ";
 
