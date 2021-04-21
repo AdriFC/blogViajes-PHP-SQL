@@ -83,8 +83,10 @@ function conseguirEntradas($conexion, $limit = null, $continente = null){
 }
 
 function conseguirEntrada($conexion, $id){
-    $sql = "SELECT e.*, c.nombre AS 'continente' FROM entradas e ".
+    $sql = "SELECT e.*, c.nombre AS 'continente', CONCAT(u.nombre, ' ', u.apellidos) AS usuario" 
+            . " FROM entradas e ".
            "INNER JOIN continentes c ON e.continente_id = c.id ".
+           "INNER JOIN usuarios u ON e.usuario_id = u.id ".
            "WHERE e.id = $id";
            
     $entrada = mysqli_query($conexion, $sql);

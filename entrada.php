@@ -18,10 +18,15 @@
         <a href="continente.php?id=<?=$entradaActual['continente_id']?>">
             <h2><?=$entradaActual['continente']?></h2>
         </a>
-        <h4><?=$entradaActual['fecha']?></h4>
+        <h4><?=$entradaActual['fecha']?> | <?=$entradaActual['usuario'] ?></h4>
         <p>
             <?=$entradaActual['descripcion']?>
         </p>
+
+        <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['id'] == $entradaActual['usuario_id']) : ?>
+            <a href="editar-entrada.php?id=<?=$entradaActual['id']?>" class="boton boton-verde">Editar entrada</a>
+            <a href="borrar-entrada.php?id=<?=$entradaActual['id']?>" class="boton">Eliminar entrada</a>
+        <?php endif; ?>
 
     </div> <!-- fin principal-->      
 
